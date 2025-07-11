@@ -1,2 +1,2 @@
 # BGTool
-Repotreeni 1: Muokkaus
+Repotreeni 1: Muokkausrepoharjoitus kolmosen lisäys readmehen
