@@ -1,46 +1,47 @@
-# Määrittelydokumentti
-
-## Opinto-ohjelma
-Tietojenkäsittelytiede
-
-## Projektin kieli
-Suomi
-
-## Projektin nimi
-BGTool
+# Määrittelydokumentti: Kirjoitusvirheiden korjaaja Pythonilla
 
 ## Käytettävä ohjelmointikieli
-Python
+- **Python** 
 
-## Muut hallitsemani kielet
+### Muut hallitsemani kielet
 
+## Toteutetut algoritmit ja tietorakenteet
 
-## Projektin ydin
-Projektin ydin on Pythonilla toteutettava banner grabbing -työkalu, joka yhdistyy määriteltyihin IP-osoitteisiin ja portteihin, ja yrittää tunnistaa niissä toimivat palvelinohjelmistot ja niiden versiot. Tunnistaminen perustuu TCP-protokollan kautta lähetettäviin palveluiden aloitusviesteihin ("bannereihin"), joita monet palvelut kuten HTTP, SSH ja FTP lähettävät heti yhteyden muodostuksen jälkeen.
+### Trie
 
-## Ongelma, jonka ratkaisen
-Tämä työkalu tarjoaa yksinkertaisen tavan kartoittaa ja tunnistaa avoinna olevia palveluita ja niiden mahdollisia versioita, mikä voi auttaa mm. tietoturvan hallinnassa ja verkon dokumentoinnissa.
+- Sanat tallennetaan trie-tietorakenteeseen, joka mahdollistaa nopean sanahaun ja sanalistauksen.
+- Trie mahdollistaa sanan merkkien tehokkaan hakemisen ja terminointitietojen tallennuksen.
 
-## Käytettävät algoritmit ja tietorakenteet
-- TCP-soketit: Pythonin socket-moduulin käyttö suoraan TCP-yhteyksien luomiseen.
-- Aikakatkaisujen hallinta.
-- Porttiskannaus: Yksinkertaisen lineaarisen porttihaku-algoritmi, jossa skannataan peräkkäin halutut portit kohdeosoitteissa.
-- Regex-analyysi: Vastauksista yritetään erottaa palvelinohjelmiston nimi ja versio säännöllisten lausekkeiden avulla.
+### Damerau-Levenshtein -etäisyys
 
-## Syötteet ja niiden käyttö
-- IP-osoitteet ja porttialueet annetaan komentoriviparametreina tai syötetään konfiguraatiotiedostona.
-- Tulokset tulostetaan konsoliin ja haluttaessa tallennetaan CSV- tai JSON-tiedostoon.
+- Algoritmi mittaa kahden merkkijonon "muokkausetäisyyttä" eli tarvittavien lisäysten, poistojen, korvausten ja vierekkäisten merkkien vaihtojen määrää.
+- Etäisyys kertoo, kuinka lähellä väärin kirjoitettu sana on oikeaa sanaa.
+- Algoritmi toteutetaan matriisipohjaisesti dynaamisella ohjelmoinnilla.
 
-### Aikavaativuus
-- Yhden portin tarkistus yhdelle IP:lle: **O(1)** (vakioaikainen yhteysyritys + vasteen odotus)
-- Koko verkon skannaus (n IP:tä, m porttia/IP): **O(n * m)**
+## Ratkaistava ongelma
 
-### Tilavaativuus
-- Vain tulokset tallennetaan: **O(n * m)**, missä `n` on IP-osoitteiden määrä ja `m` porttien määrä.
-- Muisti ei kasva merkittävästi, ellei kaikkia vastauksia tallenneta muistiin (optioksi CSV/JSON).
+Ohjelman tavoitteena on tarjota käyttäjälle ehdotuksia oikeinkirjoituksiksi, kun tämä syöttää väärin kirjoitetun sanan.
+
+## Ohjelman syötteet ja niiden käyttö
+
+- **Syötteet:** Käyttäjän kirjoittamat sanat interaktiivisessa tilassa tai erillinen sanalista tiedostosta.
+- Korjaaja hakee ehdotukset vertaamalla sanan etäisyyttä sanakirjassa oleviin sanoihin.
+
+## Aika- ja tilavaativuudet
+
+### Trie
+
+- **Aikavaativuus sanan lisäämiselle:** O(n) missä n = sanan pituus.
+- **Haun aikavaativuus:** O(n).
+
+### Damerau-Levenshtein-etäisyys
+
+- **Aikavaativuus:** O(m * n), missä m ja n ovat vertailtavien sanojen pituudet.
 
 ## Lähteet
-- [Python socket documentation](https://docs.python.org/3/library/socket.html)
-- Wikipedia: [Banner grabbing](https://en.wikipedia.org/wiki/Banner_grabbing)
-- Nmap Project: [Nmap Project](https://nmap.org)
 
+- Damerau-Levenshtein-etäisyys:  
+  [Geeks for Geeks - Damerau-Levenshtein Distance](https://www.geeksforgeeks.org/damerau-levenshtein-distance/)
+  [Damerau–Levenshtein distance](https://en.wikipedia.org/wiki/Damerau–Levenshtein_distance)
+- Trie-tietorakenne:  
+  [Wikipedia - Trie](https://fi.wikipedia.org/wiki/Trie)
