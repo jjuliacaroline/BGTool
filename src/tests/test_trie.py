@@ -3,7 +3,6 @@ from src.trie import Trie
 
 class TestTrie(unittest.TestCase):
     def setUp(self):
-        #Alustetaan Trie ja lisätään muutama sana testejä varten
         self.trie = Trie()
         self.trie.insert("kissa")
         self.trie.insert("koira")
@@ -30,3 +29,12 @@ class TestTrie(unittest.TestCase):
     def test_insert_new_word(self):
         self.trie.insert("poni")
         self.assertTrue(self.trie.search("poni"))
+
+    def test_iter_returns_all_words(self):
+        words_in_trie = set(self.trie)
+        self.assertEqual(words_in_trie, {"kissa", "koira", "kana"})
+
+    def test_str_contains_all_words(self):
+        s = str(self.trie)
+        for i in ["kissa", "koira", "kana"]:
+            self.assertIn(i, s)

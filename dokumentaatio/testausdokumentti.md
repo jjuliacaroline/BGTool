@@ -1,13 +1,12 @@
 # Testausdokumentti
-POHJA KOVAKOODILLE
 ## Yksikkötestauksen kattavuusraportti
 
-Projektin yksikkötestaus kattaa kolme päämoduulia:
-- **Trie-tietorakenne** (`test_trie.py`): 7 testiä
+Projektin yksikkötestaus kattaa neljä päämoduulia:
+- **Trie-tietorakenne** (`test_trie.py`): 9 testiä
 - **Damerau-Levenshtein etäisyysalgoritmi** (`test_distance.py`): 6 testiä  
 - **Korjausehdotusten generointialgorimi** (`test_corrector.py`): 4 testiä
-
-**Yhteensä 17 yksikkötestiä** kattavat järjestelmän kaikki keskeiset toiminnallisuudet.
+- **Integraatiotestit** (`test_integration.py`): 2 testiä
+**Yhteensä 21 yksikkötestiä** kattavat järjestelmän kaikki keskeiset toiminnallisuudet.
 
 ## Mitä on testattu ja miten
 
@@ -19,6 +18,7 @@ Trie-tietorakenteen testaus keskittyi varmistamaan perusoperaatioiden toimivuus:
 - **Osittaisten hakujen käsittely**: Testattu, että pelkkä etuliite "kis" ei palaudu kokonaisena sanana
 - **Etuliitteiden tunnistaminen**: Varmistettu, että `starts_with("ko")` palauttaa `True` (löytyy "koira")
 - **Tyhjän etuliitteen käsittely**: Testattu, että tyhjä merkkijono palauttaa `True` etuliitehaussa
+- **Iteraatio**: Varmistettu, että Trie-rakenne tukee for-silmukalla iterointia ja palauttaa kaikki tallennetut sanat
 
 ### Damerau-Levenshtein etäisyysalgoritmin testaus
 Etäisyysalgoritmin testaus kattoi kaikki mahdolliset merkkijonomuutokset:
@@ -37,6 +37,12 @@ Pääalgoritmin testaus keskittyi käytännön toimivuuteen:
 - **Tarkan osuman priorisointi**: Varmistettu, että kun haetaan sanaa "kissa" ja se löytyy sanastosta, se palautetaan ensimmäisenä ehdotuksena
 - **Lähimpien sanojen löytäminen**: Testattu, että syötteelle "kisi" algoritmi ehdottaa sanaa "kissa"
 - **Tyhjän syötteen käsittely**: Varmistettu, että tyhjä merkkijono palauttaa tyhjän ehdotuslistan
+
+### Integraatiotestaus
+Integraatiotestit varmistavat komponenttien yhteistoimivuuden:
+
+**Trie-integraatio:** Testattu että insert, search, starts_with ja iteraatio toimivat oikein yhdessä
+**Corrector-integraatio:** Varmistettu että korjausehdotusalgoritmi toimii Trie-tietorakenteen kanssa oikein
 
 ## Testisyötteet
 
@@ -81,7 +87,3 @@ python -m unittest src.tests.test_trie
 python -m unittest src.tests.test_distance  
 python -m unittest src.tests.test_corrector
 ```
-
-## Empiirisen testauksen tulokset
-
-### Damerau-Levenshtein algoritmi

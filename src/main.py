@@ -1,17 +1,12 @@
 from src.trie import Trie
 from src.corrector import suggest_correction
 
-def get_dict(file_name):
-    """Lue sanat tiedostosta ja palauta listana."""
-    with open(file_name, "r", encoding="utf-8") as f:
-        return [i.strip() for i in f if i.strip()]
-
 def main():
     trie = Trie()
-    file = get_dict("dictionary.txt")
-    
-    for word in file:
-        trie.insert(word)
+    words = ["kissa", "koira", "kana", "kala", "kirja", "kivi"]
+
+    for i in words:
+        trie.insert(i)
     
     print("Kirjoitusvirheiden korjaaja")
     print("Anna sana, jolle haluat korjausehdotuksia.")
